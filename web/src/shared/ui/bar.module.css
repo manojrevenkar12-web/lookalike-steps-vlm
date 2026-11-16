@@ -1,0 +1,5 @@
+.track { height: var(--bar); background: var(--paper); border-radius: var(--radius-sm); overflow: hidden; }
+.fill { height: 100%; width: 100%; transform-origin: left; }
+.ink { background: var(--ink); }
+.soft { background: var(--held); }
+.wrong { background: var(--wrong); }

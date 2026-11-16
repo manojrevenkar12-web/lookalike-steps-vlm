@@ -1,0 +1,7 @@
+.table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
+.table th, .table td { text-align: left; padding: var(--space-3) var(--space-4) var(--space-3) 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.table thead th { font-weight: 600; color: var(--ink-soft); font-variation-settings: "wdth" var(--narrow); }
+.table td { min-width: 9rem; }
+.table td span { display: block; margin-bottom: var(--space-1); }
+.product th, .product td span { font-weight: 700; }
+@media (max-width: 40rem) { .table td:nth-child(2), .table th:nth-child(2) { display: none; } }

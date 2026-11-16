@@ -1,0 +1,37 @@
+# The product's settings: model sizes, training, fine-tuning, the tracker, the edge student and the checks.
+vlm:                    # Qwen2.5-VL architecture from transformers, scaled down for a CPU build box
+  text: {hidden_size: 160, intermediate_size: 320, num_hidden_layers: 3, num_attention_heads: 4, num_key_value_heads: 2, mrope_section: [4, 8, 8]}
+  vision: {depth: 2, hidden_size: 96, intermediate_size: 192, num_heads: 4, patch_size: 8, temporal_patch_size: 2, spatial_merge_size: 2}
+  clip_frames: 8        # frames around the frame being labelled (1.6 s at 5 fps)
+  crop: 32              # hand crops, pixels: half the frame height, shown beside the frame
+  crop_half: 9          # half-size of the crop window in camera pixels
+  crop_dropout: 0.5     # share of pretraining clips with the crop column left grey, so one base model serves both
+pretrain: {epochs: 5, lr: 0.001, batch: 32, stride: 2, seed: 3}
+finetune:
+  full: {epochs: 8, lr: 0.0005}
+  lora: {epochs: 8, lr: 0.002, r: 8, alpha: 16, dropout: 0.05}
+  batch: 32
+  stride: 2
+  pair_weight: 1.0      # weight of the look-alike loss
+  pair_oversample: 2    # look-alike frames seen this many times per epoch
+  seed: 5
+tracker:
+  detr: {dim: 96, queries: 6, enc_layers: 2, dec_layers: 2, epochs: 24, lr: 0.0005, batch: 32, stride: 8, seed: 7}
+  min_score: 0.5
+  side_hysteresis: 3    # frames a hand's side must be seen before its identity changes
+  iou_baseline: {min_iou: 0.1, max_misses: 5}
+student:
+  dim: 96
+  tcn_layers: 4         # dilations 1, 2, 4, 8: a causal window of 16 frames
+  epochs: 25
+  lr: 0.002
+  temperature: 2.0
+  seed: 11
+checks:
+  target_accuracy: 0.95   # accuracy wanted on frames the edge reports; the confidence threshold is set to reach it on validation
+  pair_margin_quantile: 0.1
+  monitor_every_s: 10     # one clip a camera sends to the cloud model for a second opinion
+  monitor_window: 6       # second opinions per decision (one minute)
+  disagreement_margin: 0.15  # flag when edge and cloud disagree this much more often than on validation
+  min_coverage_ratio: 0.8 # share of validation coverage a station must keep
+  weak_below: 0.85        # a recording is weak (truth) when the edge's frame accuracy is below this

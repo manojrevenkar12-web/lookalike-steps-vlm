@@ -1,0 +1,22 @@
+# What every station shares: the steps a worker can do, the words an engineer uses for them, and which steps look
+# alike on camera. The world and the product both read this file; it is the shop-floor vocabulary, not a setting.
+steps:
+  idle:          "hands at rest"
+  pick_housing:  "pick housing from bin"
+  place_housing: "place housing in fixture"
+  pick_screw:    "pick screw from tray"
+  fasten_a:      "fasten screw at slot a"
+  fasten_b:      "fasten screw at slot b"
+  torque_a:      "torque check at slot a"
+  insert_clip:   "insert clip into housing"
+  remove_clip:   "remove clip from housing"
+  inspect:       "lift housing and inspect"
+  unload:        "unload housing to output"
+# pairs a camera cannot tell apart at a glance: a few pixels of tool position, the tool itself, or the direction
+# of a motion
+lookalike:
+  - [fasten_a, fasten_b]
+  - [fasten_a, torque_a]
+  - [insert_clip, remove_clip]
+fps: 5
+frame: 64

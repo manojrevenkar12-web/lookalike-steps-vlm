@@ -1,0 +1,13 @@
+.hero { padding: var(--space-16) 0 var(--space-12); display: grid; gap: var(--space-6); grid-template-columns: minmax(0, 1fr); }
+.title { font-size: var(--text-hero); line-height: var(--leading-tight); font-variation-settings: "wdth" var(--wide); font-weight: 800; margin: 0; letter-spacing: -0.02em; }
+.lede { max-width: var(--measure); font-size: var(--text-lg); color: var(--ink-soft); margin: 0; }
+.pair { display: flex; flex-wrap: wrap; gap: var(--space-6); }
+.figure { margin: 0; }
+.figure img { display: block; height: var(--frame); width: auto; image-rendering: pixelated; border-radius: var(--radius-sm); }
+.figure figcaption { font-size: var(--text-sm); color: var(--ink-soft); padding-top: var(--space-2); font-variation-settings: "wdth" var(--narrow); }
+.results { max-width: var(--measure); display: grid; gap: var(--space-3); }
+.question { font-weight: 650; margin: 0 0 var(--space-1); }
+.row { display: grid; grid-template-columns: minmax(0, 1fr) 4.5rem; gap: var(--space-1) var(--space-4); align-items: baseline; }
+.row > :last-child { grid-column: 1 / -1; }
+.label { font-size: var(--text-sm); }
+.value { text-align: right; font-weight: 700; font-variation-settings: "wdth" var(--wide); }

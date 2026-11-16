@@ -1,0 +1,11 @@
+# Written before any full result. The product ships only if every line holds on dev. The held-out station is judged
+# by the same lines, once, and this file is not moved after it.
+station_condition: normal
+min_lookalike_accuracy_cloud: 0.90      # the cloud model on frames of look-alike steps
+min_frame_accuracy_edge: 0.88           # the edge student, every frame
+min_reported_accuracy_edge: 0.95        # frames the edge reports after its gate
+min_coverage_edge: 0.70                 # share of frames the edge reports
+min_hand_idf1: 0.80                     # identity F1 of the hand tracker
+max_edge_ms_per_frame: 5.0              # detector, crops, int8 encoder and temporal head, one CPU thread
+min_weak_recordings_flagged: 0.80       # recordings where the edge is weak (truth), flagged by the monitor
+max_healthy_recordings_flagged: 0.10

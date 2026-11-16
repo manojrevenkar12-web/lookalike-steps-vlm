@@ -1,0 +1,14 @@
+[project]
+name = "lookalike-steps-vlm"
+version = "1.0.0"
+description = "Video-language model for factory assembly steps that look alike: Qwen2.5-VL fine-tuning with LoRA, a look-alike loss, DETR hand tracking, distillation to an int8 edge model, and checks that hold weak answers back."
+requires-python = ">=3.12"
+authors = [{ name = "Manoj Kumar Prakash" }]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+filterwarnings = ["ignore::DeprecationWarning", "ignore::UserWarning", "ignore::FutureWarning"]
+
+[tool.ruff]
+line-length = 160

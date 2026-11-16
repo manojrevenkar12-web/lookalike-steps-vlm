@@ -1,0 +1,23 @@
+# The designs compared on the same customer recordings. The video-language designs all start from one base model
+# pretrained on the pretraining stations; each one changes one thing.
+designs:
+  vlm_zero_shot:    {label: "Base model, no labels from the customer station", tune: none, pairs: false, crops: true}
+  vlm_full:         {label: "Full fine-tune on the labelled recordings", tune: full, pairs: false, crops: false}
+  vlm_lora:         {label: "LoRA fine-tune", tune: lora, pairs: false, crops: false}
+  vlm_lora_pairs:   {label: "LoRA with the look-alike loss", tune: lora, pairs: true, crops: false}
+  vlm_lora_pairs_crops: {label: "LoRA, look-alike loss and the tracked hand crops (the cloud model)", tune: lora, pairs: true, crops: true}
+edge:
+  scratch_student:  {label: "Edge model trained on the labelled recordings only (no VLM)"}
+  edge_student:     {label: "Edge model distilled from the cloud model on unlabelled recordings (the product)"}
+teacher: vlm_lora_pairs_crops
+label_curve: [1, 2, 4]       # labelled recordings for the curve (dev only)
+profiles:
+  full: {}
+  quick:                      # the CI smoke run: same code, a sliver of the data and training
+    world: {seconds: 12, pretrain: {stations: 2, recordings: 1}, customer: {labelled: 1, validation: 1, unlabelled: 1, test: 1}}
+    model:
+      pretrain: {epochs: 1, batch: 8}
+      finetune: {full: {epochs: 1}, lora: {epochs: 1}, batch: 8}
+      tracker: {detr: {epochs: 1, stride: 2, batch: 8}}
+      student: {epochs: 1}
+    label_curve: [1]

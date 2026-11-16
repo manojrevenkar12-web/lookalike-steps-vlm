@@ -1,0 +1,7 @@
+.facts { display: grid; grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr)); gap: var(--space-6); margin: 0 0 var(--space-8); }
+.facts dt { font-size: var(--text-sm); color: var(--ink-soft); }
+.facts dd { margin: 0; font-size: var(--text-lg); font-weight: 700; font-variation-settings: "wdth" var(--wide); }
+.note { color: var(--ink-soft); }
+.table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
+.table th, .table td { text-align: left; padding: var(--space-2) var(--space-4) var(--space-2) 0; border-bottom: 1px solid var(--rule); }
+.table thead th { font-weight: 600; color: var(--ink-soft); }

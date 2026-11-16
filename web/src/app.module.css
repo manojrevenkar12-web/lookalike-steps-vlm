@@ -1,0 +1,2 @@
+.page { max-width: var(--page); margin: 0 auto; padding: 0 var(--space-6) var(--space-16); }
+.footer { border-top: 1px solid var(--rule); padding-top: var(--space-6); font-size: var(--text-sm); color: var(--ink-soft); }

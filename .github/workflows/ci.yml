@@ -1,0 +1,33 @@
+name: ci
+on: [push, pull_request]
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.13" }
+      - run: pip install --index-url https://download.pytorch.org/whl/cpu torch torchvision && pip install -r requirements.txt
+      - run: python -m pytest -q
+      - run: python -m lsv.eval.cli readme --check
+  smoke:
+    # the whole pipeline on a sliver of the data: world, DETR, tracking, pretraining, every fine-tune, distillation,
+    # ONNX export with int8, the edge runtime and the checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.13" }
+      - run: pip install --index-url https://download.pytorch.org/whl/cpu torch torchvision && pip install -r requirements.txt
+      - run: python -m lsv.eval.cli evaluate --profile quick
+  dashboard:
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: web } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "22" }
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build

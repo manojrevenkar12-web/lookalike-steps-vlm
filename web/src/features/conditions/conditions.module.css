@@ -1,0 +1,5 @@
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr)); gap: var(--space-8) var(--space-6); }
+.card { display: grid; gap: var(--space-3); align-content: start; }
+.name { font-size: var(--text-md); font-weight: 700; font-variation-settings: "wdth" var(--wide); margin: 0; }
+.item { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--space-1) var(--space-2); font-size: var(--text-sm); }
+.item > :last-child { grid-column: 1 / -1; }
